@@ -4,7 +4,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.auth import verify_api_key
-from app.routers import interactions, items, learners
+from app.routers import analytics, interactions, items, learners, pipeline
 from app.settings import settings
 
 app = FastAPI(
@@ -43,3 +43,17 @@ if settings.enable_learners:
         tags=["learners"],
         dependencies=[Depends(verify_api_key)],
     )
+
+app.include_router(
+    pipeline.router,
+    prefix="/pipeline",
+    tags=["pipeline"],
+    dependencies=[Depends(verify_api_key)],
+)
+
+app.include_router(
+    analytics.router,
+    prefix="/analytics",
+    tags=["analytics"],
+    dependencies=[Depends(verify_api_key)],
+)

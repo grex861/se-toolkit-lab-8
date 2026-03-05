@@ -29,7 +29,9 @@ async def post_learner(
 ):
     """Create a new learner."""
     try:
-        return await create_learner(session, name=body.name, email=body.email)
+        return await create_learner(
+            session, external_id=body.external_id, student_group=body.student_group
+        )
     except IntegrityError as exc:
         await session.rollback()
         raise HTTPException(

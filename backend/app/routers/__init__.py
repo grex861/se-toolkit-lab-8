@@ -1,6 +1,3 @@
-from app.routers import items
+from app.routers import analytics, interactions, items, learners, pipeline
 
-# from app.routers import interactions
-# from app.routers import learners
-
-__all__ = ["items"]
+__all__ = ["analytics", "interactions", "items", "learners", "pipeline"]

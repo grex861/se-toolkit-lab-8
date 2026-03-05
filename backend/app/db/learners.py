@@ -19,9 +19,13 @@ async def read_learners(
     return list(result.all())
 
 
-async def create_learner(session: AsyncSession, name: str, email: str) -> Learner:
+async def create_learner(
+    session: AsyncSession, external_id: str, student_group: str = ""
+) -> Learner:
     """Create a new learner in the database."""
-    learner = Learner(name=name, email=email, enrolled_at=datetime.now())
+    learner = Learner(
+        external_id=external_id, student_group=student_group, enrolled_at=datetime.now()
+    )
     session.add(learner)
     await session.commit()
     await session.refresh(learner)

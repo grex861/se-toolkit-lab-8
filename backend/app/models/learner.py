@@ -11,13 +11,13 @@ class Learner(SQLModel, table=True):
     __tablename__ = "learner"
 
     id: int | None = Field(default=None, primary_key=True)
-    name: str
-    email: str
+    external_id: str = Field(unique=True)
+    student_group: str = ""
     enrolled_at: datetime | None = Field(default=None)
 
 
 class LearnerCreate(SQLModel):
     """Schema for creating a learner."""
 
-    name: str
-    email: str
+    external_id: str
+    student_group: str = ""
