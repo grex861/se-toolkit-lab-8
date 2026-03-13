@@ -38,19 +38,19 @@ Your agent needs an LLM that supports the OpenAI-compatible chat completions API
 
 [Qwen Code](../../../wiki/qwen.md#what-is-qwen-code) provides **1000 free requests per day**, works from Russia, and requires no credit card. Follow the [setup instructions](../setup-simple.md#17-set-up-llm-access-qwen-code-api) to deploy it on your VM.
 
-| Model | Tool calling | Notes |
-|-------|-------------|-------|
-| `qwen3-coder-plus` | Strong | Recommended, default in `.env.agent.example` |
-| `coder-model` | Strong | Qwen 3.5 Plus |
+| Model              | Tool calling | Notes                                        |
+| ------------------ | ------------ | -------------------------------------------- |
+| `qwen3-coder-plus` | Strong       | Recommended, default in `.env.agent.example` |
+| `coder-model`      | Strong       | Qwen 3.5 Plus                                |
 
 <details><summary><b>Alternative: OpenRouter (click to open)</b></summary>
 
 [OpenRouter](https://openrouter.ai) offers free models with no credit card required.
 
-| Model | Tool calling | Notes |
-|-------|-------------|-------|
-| `meta-llama/llama-3.3-70b-instruct:free` | Strong | Good alternative |
-| `qwen/qwen3-coder:free` | Good | Alternative |
+| Model                                    | Tool calling | Notes            |
+| ---------------------------------------- | ------------ | ---------------- |
+| `meta-llama/llama-3.3-70b-instruct:free` | Strong       | Good alternative |
+| `qwen/qwen3-coder:free`                  | Good         | Alternative      |
 
 > [!WARNING]
 > **OpenRouter free-tier limitations:**
