@@ -13,7 +13,10 @@ The bot works locally via `--test` mode, but it's not a real product until it's 
 
 ### 1. Bot Dockerfile (`bot/Dockerfile`)
 
-Installs dependencies from `bot/pyproject.toml` and runs the bot entry point.
+Installs dependencies using `uv sync` from `bot/pyproject.toml` and runs the bot entry point.
+
+> [!IMPORTANT]
+> Do **not** use `requirements.txt` or `pip install`. The project uses `uv` and `pyproject.toml` exclusively. Having both `pyproject.toml` and `requirements.txt` leads to dependency drift and random breakage. If your coding agent generates a `requirements.txt`, delete it.
 
 ### 2. Bot service in `docker-compose.yml`
 

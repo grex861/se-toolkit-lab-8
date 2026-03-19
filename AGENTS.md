@@ -79,6 +79,7 @@ Don't lecture upfront. Explain at the moment they become relevant:
 - Don't offer "or would you like me to do X?" — that's an invitation to disengage.
 - Don't ask multiple questions at once.
 - Don't implement silently — explain what you're building and why.
+- Don't create `requirements.txt` or use `pip`. This project uses `uv` and `pyproject.toml` exclusively. Having both leads to dependency drift.
 - Don't hardcode URLs or API keys.
 - Don't commit secrets.
 - Don't implement features from later tasks.

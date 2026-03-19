@@ -62,7 +62,7 @@ Handler modules separated from the Telegram transport layer. The `--test` mode c
 
 ### 4. Dependencies (`bot/pyproject.toml`)
 
-Bot-specific Python project with dependencies. `cd bot && uv sync` must work without errors.
+Bot-specific Python project with dependencies. `cd bot && uv sync` must work without errors. Do **not** create `requirements.txt` — use `pyproject.toml` and `uv` exclusively.
 
 ### 5. Environment files
 
