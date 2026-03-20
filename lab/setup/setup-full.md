@@ -181,7 +181,7 @@ See [tools](../../wiki/software-types.md#tool).
 
    It should look like `https://github.com/<your-github-username>/se-toolkit-lab-7`.
 
-   See [`<your-github-username>`](../../wiki/github.md#your-github-username).
+   See [`<your-github-username>`](../../wiki/github.md#your-github-username-placeholder).
 
 #### 1.6.2. (UPD) Clone your fork
 

@@ -35,7 +35,7 @@ This page describes how to deploy the [LMS API](./lms-api.md#about-the-lms-api) 
 
    to `~/se-toolkit-lab-7`.
 
-   Replace the placeholder [`<your-github-username>`](./github.md#your-github-username).
+   Replace the placeholder [`<your-github-username>`](./github.md#your-github-username-placeholder).
 
 ### Enter the repository directory (REMOTE)
 

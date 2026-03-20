@@ -38,7 +38,7 @@ Example: `j.doe@innopolis.university`.
 
 Replace the placeholders:
 
-- [`<your-github-username>`](./github.md#your-github-username)
+- [`<your-github-username>`](./github.md#your-github-username-placeholder)
 - `<your-telegram-username>` with your `Telegram` username (without `@`)
 
 Example: `githubtelegram`.

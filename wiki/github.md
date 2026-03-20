@@ -6,7 +6,7 @@
 - [The `GitHub` site](#the-github-site)
 - [`GitHub` API](#github-api)
 - [`GitHub` username](#github-username)
-  - [`<your-github-username>`](#your-github-username)
+  - [`<your-github-username>` placeholder](#your-github-username-placeholder)
   - [Find `<your-github-username>`](#find-your-github-username)
 - [`GitHub` repository](#github-repository)
   - [`<repo-name>`](#repo-name)
@@ -93,11 +93,9 @@ Example of a username: `inno-se-toolkit`.
 
 Note that this username doesn't include `@`.
 
-### `<your-github-username>`
+### `<your-github-username>` placeholder
 
-Assume `<your-github-username>` is your [`GitHub` username](#github-username).
-
-`<your-github-username>` doesn't include `@`.
+Your [`GitHub` username](#github-username) (without `@`).
 
 ### Find `<your-github-username>`
 
@@ -176,7 +174,7 @@ When you fork a repository on `GitHub`, you create a personal copy under your `G
 2. Go to the repo that you want to fork.
 3. Click `Fork`.
    1. Click `Choose an owner`.
-   2. Click [`<your-github-username>`](#your-github-username) to make you the repo owner.
+   2. Click [`<your-github-username>`](#your-github-username-placeholder) to make you the repo owner.
    3. Click `Create fork`.
 
 ### `<your-fork-url>`
@@ -189,7 +187,7 @@ Then, your fork URL should look like `https://github.com/<your-github-username>/
 
 See also:
 
-- [`<your-github-username>`](#your-github-username)
+- [`<your-github-username>`](#your-github-username-placeholder)
 - [`<repo-name>`](#repo-name).
 
 ### Go to your fork
