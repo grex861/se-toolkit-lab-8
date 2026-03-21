@@ -31,6 +31,9 @@
 > [!TIP]
 > In the instructions below, values you need to replace are marked like this: **`YOUR_VALUE`**. Replace the entire placeholder (including the `<` and `>` if present) with your actual value.
 
+> [!TIP]
+> First ask your [coding agent](#111-coding-agent), then ask the TA.
+
 ### 1.1. Set up your fork
 
 #### 1.1.1. Fork the course instructors' repo
