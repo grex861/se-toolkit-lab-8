@@ -7,12 +7,13 @@ requires-python = "==3.14.*"
 dependencies = [
     "nanobot-ai",
     "mcp-lms",
+    "nanobot-webchat",
+    "mcp-webchat",
     "openai>=2.30.0",
 ]
 
 [tool.uv.sources]
 nanobot-ai = { url = "https://github.com/HKUDS/nanobot/archive/e7d371ec1e6531b28898ec2c869ef338e8dd46ec.zip" }
 mcp-lms = { workspace = true }
-
-[tool.uv.workspace]
-members = ["../mcp/mcp-lms"]
+nanobot-webchat = { workspace = true }
+mcp-webchat = { workspace = true }
