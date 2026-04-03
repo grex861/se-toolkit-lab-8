@@ -6,23 +6,29 @@ Paste your checkpoint evidence below. Add screenshots as image files in the repo
 
 **Question 1: "What is the agentic loop?"**
 
-The agentic loop is the fundamental cycle that an AI agent follows to accomplish tasks autonomously. It typically consists of these core stages:
+The **agentic loop** is the core cycle that an AI agent follows to accomplish tasks autonomously. It's the fundamental pattern of how agents like me operate. Here's the typical loop:
 
-1. **Perceive** — Gather information from the environment (user input, tool outputs, file contents, API responses, etc.)
-2. **Reason** — Process the information, plan next steps, and decide what action to take
-3. **Act** — Execute the chosen action (call a tool, write a file, send a message, run a command, etc.)
-4. **Observe** — Receive feedback from the action (success, error, output data)
-5. **Repeat** — Loop back to step 1 with the new information until the task is complete
+1. **Perceive** — Receive input from the user or environment (a question, a command, sensor data, etc.)
+2. **Reason/Plan** — Analyze the input, understand intent, and decide what to do next. This includes:
+   - Breaking down complex tasks into steps
+   - Choosing which tools or actions to use
+   - Determining if more information is needed
+3. **Act** — Execute the chosen action(s):
+   - Call tools (read files, run commands, search the web, etc.)
+   - Make API calls
+   - Modify files or systems
+4. **Observe** — Receive the results of those actions (tool outputs, errors, new data)
+5. **Reflect/Iterate** — Evaluate the results:
+   - Did the action succeed?
+   - Is the task complete, or is another step needed?
+   - If not done, go back to step 2 (Reason/Plan) with the new information
+6. **Respond** — Once the task is complete, deliver the final answer or result to the user
 
-This loop enables agents to:
-- Break complex tasks into smaller steps
-- Adapt based on feedback and errors
-- Use tools dynamically as needed
-- Work toward goals autonomously
+This loop enables agents to handle multi-step tasks, adapt to failures, chain reasoning outputs, and work autonomously.
 
 **Question 2: "What labs are available in our LMS?"**
 
-Here are the available labs in the LMS:
+The agent returned real lab names from the backend because the MCP LMS tools were already configured in the nanobot config.json:
 
 1. Lab 01 – Products, Architecture & Roles
 2. Lab 02 — Run, Fix, and Deploy a Backend Service
@@ -31,15 +37,13 @@ Here are the available labs in the LMS:
 5. Lab 05 — Data Pipeline and Analytics Dashboard
 6. Lab 06 — Build Your Own Agent
 7. Lab 07 — Build a Client with an AI Coding Agent
-8. lab-08
-
-Note: The agent returned real lab names from the backend because the MCP LMS tools were already configured in the nanobot config.json.
+8. Lab 08 — lab-08
 
 ## Task 1B — Agent with LMS tools
 
 **Question 1: "What labs are available?"**
 
-The agent called the `mcp_lms_lms_labs` tool and returned real lab names from the backend:
+Here are the available labs:
 
 1. Lab 01 – Products, Architecture & Roles
 2. Lab 02 — Run, Fix, and Deploy a Backend Service
@@ -48,11 +52,13 @@ The agent called the `mcp_lms_lms_labs` tool and returned real lab names from th
 5. Lab 05 — Data Pipeline and Analytics Dashboard
 6. Lab 06 — Build Your Own Agent
 7. Lab 07 — Build a Client with an AI Coding Agent
-8. lab-08
+8. Lab 08 — lab-08
+
+Let me know if you'd like to see scores, pass rates, completion rates, group performance, or submission timelines for any specific lab!
 
 **Question 2: "Is the LMS backend healthy?"**
 
-The agent can call `mcp_lms_lms_health` to check backend health. The MCP server is connected and 9 LMS tools are registered.
+The agent called the `mcp_lms_lms_health` tool and returned: "Yes, the LMS backend is healthy! It currently has 56 items in the system."
 
 ## Task 1C — Skill prompt
 
@@ -60,14 +66,12 @@ The agent can call `mcp_lms_lms_health` to check backend health. The MCP server 
 
 The agent followed the LMS skill strategy:
 
-1. First called `lms_labs` to get available labs
-2. Presented the list of labs to the user
+1. First called `mcp_lms_lms_labs` to get available labs
+2. Used the structured-ui skill to present a choice to the user
 3. Asked which lab the user wants to see scores for
 
 Response:
-> I'll help you see the scores! First, let me get the list of available labs.
->
-> Here are the available labs. Which lab would you like to see the scores for?
+> Which lab would you like to see scores for?
 >
 > 1. Lab 01 – Products, Architecture & Roles
 > 2. Lab 02 — Run, Fix, and Deploy a Backend Service
@@ -77,8 +81,6 @@ Response:
 > 6. Lab 06 — Build Your Own Agent
 > 7. Lab 07 — Build a Client with an AI Coding Agent
 > 8. lab-08
->
-> Please let me know which lab you're interested in, or I can show you scores for all of them!
 
 This demonstrates the skill prompt is working - the agent asks for clarification when a lab parameter is missing.
 
