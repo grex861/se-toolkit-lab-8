@@ -86,11 +86,44 @@ This demonstrates the skill prompt is working - the agent asks for clarification
 
 ## Task 2A — Deployed agent
 
-<!-- Paste a short nanobot startup log excerpt showing the gateway started inside Docker -->
+Nanobot startup log excerpt:
+
+```
+nanobot-1  | Using config: /app/nanobot/config.resolved.json
+nanobot-1  | Using workspace: /app/nanobot/workspace
+nanobot-1  | 🐈 Starting nanobot gateway version 0.1.4.post5 on port 18790...
+nanobot-1  | ✓ Channels enabled: webchat
+nanobot-1  | ✓ Heartbeat: every 1800s
+nanobot-1  | 2026-04-03 17:41:14.879 | INFO     | nanobot.channels.manager:start_all:91 - Starting webchat channel...
+nanobot-1  | 2026-04-03 17:41:17.131 | INFO     | nanobot.agent.tools.mcp:connect_mcp_servers:246 - MCP server 'lms': connected, 9 tools registered
+nanobot-1  | 2026-04-03 17:41:19.226 | INFO     | nanobot.agent.tools.mcp:connect_mcp_servers:246 - MCP server 'webchat': connected, 1 tools registered
+nanobot-1  | 2026-04-03 17:41:19.226 | INFO     | nanobot.agent.loop:run:280 - Agent loop started
+```
+
+All services running in Docker Compose:
+- `nanobot` gateway running with webchat channel enabled
+- `mcp_lms` MCP server connected (9 tools)
+- `mcp_webchat` MCP server connected (1 tool: `mcp_webchat_ui_message`)
+- Agent loop started successfully
 
 ## Task 2B — Web client
 
-<!-- Screenshot of a conversation with the agent in the Flutter web app -->
+**WebSocket test via CLI:**
+
+```
+Connecting to: ws://localhost:42002/ws/chat?access_key=33f37fdd78f922150c28edae1c247ff1
+Sent message, waiting for response...
+[0] text: I'll check the health of the LMS backend for you.
+[1] text: The LMS backend is currently healthy! It's showing 56 items in the system, which indicates everything is running properly.
+```
+
+**Flutter web client:**
+
+- `http://<vm-ip>:42002/flutter` — loads login screen (HTTP 200, 717 bytes)
+- Login with `NANOBOT_ACCESS_KEY` — accepted
+- Agent responds to questions via real LMS tools
+
+<!-- Screenshot: Flutter chat showing agent answer + structured UI if applicable -->
 
 ## Task 3A — Structured logging
 
