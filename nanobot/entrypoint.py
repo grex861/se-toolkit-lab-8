@@ -76,6 +76,14 @@ def resolve_config() -> str:
             },
         }
 
+    # MCP server for observability (VictoriaLogs + VictoriaTraces)
+    if vl_url := os.environ.get("NANOBOT_VICTORIALOGS_URL"):
+        config.setdefault("tools", {}).setdefault("mcpServers", {}).setdefault("obs", {}).setdefault("env", {})
+        config["tools"]["mcpServers"]["obs"]["env"]["NANOBOT_VICTORIALOGS_URL"] = vl_url
+    if vt_url := os.environ.get("NANOBOT_VICTORIATRACES_URL"):
+        config.setdefault("tools", {}).setdefault("mcpServers", {}).setdefault("obs", {}).setdefault("env", {})
+        config["tools"]["mcpServers"]["obs"]["env"]["NANOBOT_VICTORIATRACES_URL"] = vt_url
+
     # Write resolved config next to the original
     config_dir = Path(__file__).parent
     resolved_path = config_dir / "config.resolved.json"

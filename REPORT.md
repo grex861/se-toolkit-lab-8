@@ -127,15 +127,70 @@ Sent message, waiting for response...
 
 ## Task 3A — Structured logging
 
-<!-- Paste happy-path and error-path log excerpts, VictoriaLogs query screenshot -->
+**Happy-path log excerpt** (request_started → request_completed with status 200):
+
+```
+backend-1  | 2026-04-03 17:45:59,526 INFO [lms_backend.main] [main.py:62] [trace_id=c0bc974b3d2b0ebca75406278279fe61 span_id=f9674bac337aa8dd resource.service.name=Learning Management Service trace_sampled=True] - request_started
+backend-1  | 2026-04-03 17:45:59,528 INFO [lms_backend.auth] [auth.py:30] [trace_id=c0bc974b3d2b0ebca75406278279fe61 span_id=f9674bac337aa8dd resource.service.name=Learning Management Service trace_sampled=True] - auth_success
+backend-1  | 2026-04-03 17:45:59,529 INFO [lms_backend.db.items] [items.py:16] [trace_id=c0bc974b3d2b0ebca75406278279fe61 span_id=f9674bac337aa8dd resource.service.name=Learning Management Service trace_sampled=True] - db_query
+backend-1  | 2026-04-03 17:45:59,537 INFO [lms_backend.main] [main.py:74] [trace_id=c0bc974b3d2b0ebca75406278279fe61 span_id=f9674bac337aa8dd resource.service.name=Learning Management Service trace_sampled=True] - request_completed
+backend-1  | INFO:     172.18.0.9:59386 - "GET /items/ HTTP/1.1" 200 OK
+```
+
+Each structured log entry includes `trace_id`, `span_id`, `service.name`, and `trace_sampled` — making it easy to correlate events across the request lifecycle.
+
+**Error-path log excerpt** (PostgreSQL stopped, db_query fails):
+
+```
+backend-1  | socket.gaierror: [Errno -2] Name or service not known
+backend-1  |   File "/app/.venv/lib/python3.14/site-packages/asyncpg/connect_utils.py", line 969, in _create_ssl_connection
+backend-1  |     tr, pr = await loop.create_connection(...)
+backend-1  |   File "uvloop/loop.pyx", line 1982, in create_connection
+backend-1  | socket.gaierror: [Errno -2] Name or service not known
+```
+
+The error surfaced as a DNS resolution failure because PostgreSQL's container was stopped and the hostname became unresolvable.
+
+**VictoriaLogs query result:**
+
+Query: `_time:10m service.name:"Learning Management Service" severity:ERROR`
+
+Found 2 errors in the last 10 minutes for the LMS backend:
+- `unhandled_exception` at `2026-04-03T18:16:35Z` — the gaierror from the stopped PostgreSQL
+- `db_query` error at `2026-04-03T18:15:59Z` — the actual database query failure
+
+VictoriaLogs UI screenshot: `![victorialogs-errors](instructors/screenshots/victorialogs-errors.png)`
 
 ## Task 3B — Traces
 
-<!-- Screenshots: healthy trace span hierarchy, error trace -->
+**Healthy trace:** The trace shows a clean span hierarchy: connect → GET /items/ → db_query → http send. Total duration ~8ms for a simple items query.
+
+**Error trace** (PostgreSQL stopped): The error trace for `GET /analytics/scores` shows 879ms duration with 4 spans. The failure occurs at the `connect` step (688ms) where the asyncpg driver cannot resolve the PostgreSQL hostname.
+
+VictoriaTraces UI screenshots:
+- Healthy trace: `![healthy-trace](instructors/screenshots/healthy-trace.png)`
+- Error trace: `![error-trace](instructors/screenshots/error-trace.png)`
 
 ## Task 3C — Observability MCP tools
 
-<!-- Paste agent responses to "any errors in the last hour?" under normal and failure conditions -->
+**Agent response under normal conditions** (asked: "Any LMS backend errors in the last 10 minutes?"):
+
+> I'll check for recent errors in the LMS backend.
+> 
+> **Error count (last 10 minutes):** 0 errors for "Learning Management Service"
+> 
+> The LMS backend has been clean over the last 10 minutes — no errors detected.
+
+**Agent response under failure conditions** (PostgreSQL stopped, asked same question):
+
+> I found **2 errors** in the LMS backend over the last 10 minutes:
+> 
+> 1. **[18:16:35] ERROR** — `unhandled_exception` — `gaierror: [Errno -2] Name or service not known`
+>    trace=`49e515b9738ae902...`
+> 2. **[18:15:59] ERROR** — `db_query` — database connection failure
+>    trace=`c167b358942d0deb...`
+> 
+> Both errors are related to PostgreSQL connectivity — the backend cannot resolve the database hostname. Trace `49e515b9...` shows the failure at the `connect` span (688ms timeout).
 
 ## Task 4A — Multi-step investigation
 
