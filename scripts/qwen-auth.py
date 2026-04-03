@@ -43,13 +43,11 @@ def _request(url, data_dict):
 
 
 def main():
-    # Step 1: PKCE
     verifier = secrets.token_urlsafe(32)
     challenge = base64.urlsafe_b64encode(
         hashlib.sha256(verifier.encode()).digest()
     ).rstrip(b"=").decode()
 
-    # Step 2: Device code
     print("Requesting device code...")
     try:
         resp = _request(f"{AUTH_URL}/device/code", {
@@ -71,7 +69,6 @@ def main():
     print(f"  {verify_url}\n")
     input("  Press Enter after you authorized in the browser...")
 
-    # Step 3: Exchange for token
     print("Exchanging code for token...")
     token_params = {
         "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
@@ -105,9 +102,9 @@ def main():
         print("The token exchange is blocked by Alibaba WAF from this IP.")
         print("Run this curl command from your laptop or phone hotspot instead:\n")
         curl_data = urllib.parse.urlencode(token_params)
-        print(f'  curl -s -X POST "{AUTH_URL}/token" \\')
-        print(f'    -H "User-Agent: {UA}" \\')
-        print(f'    -H "Content-Type: application/x-www-form-urlencoded" \\')
+        print(f'  curl -s -X POST "{AUTH_URL}/token" \\\\')
+        print(f'    -H "User-Agent: {UA}" \\\\')
+        print(f'    -H "Content-Type: application/x-www-form-urlencoded" \\\\')
         print(f'    -d "{curl_data}"')
         print()
         print(f"Then save the JSON output to {CREDS_PATH} on the VM.")
@@ -118,7 +115,6 @@ def main():
         print(f"ERROR: unexpected response: {json.dumps(token)[:300]}")
         sys.exit(1)
 
-    # Step 4: Save credentials
     creds = {
         "access_token": token["access_token"],
         "token_type": token.get("token_type", "Bearer"),

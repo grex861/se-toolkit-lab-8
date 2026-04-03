@@ -182,13 +182,12 @@ services:
       # - client-web-flutter:/srv/flutter:ro
 
   qwen-code-api:
+    network_mode: host
     build:
       context: ./qwen-code-api
       args:
         REGISTRY_PREFIX_DOCKER_HUB: ${REGISTRY_PREFIX_DOCKER_HUB:-}
     restart: unless-stopped
-    networks:
-      - lms-network
     ports:
       - ${QWEN_CODE_API_HOST_ADDRESS:?'QWEN_CODE_API_HOST_ADDRESS is required'}:${QWEN_CODE_API_HOST_PORT:?'QWEN_CODE_API_HOST_PORT is required'}:${QWEN_CODE_API_CONTAINER_PORT:-8080}
     volumes:
